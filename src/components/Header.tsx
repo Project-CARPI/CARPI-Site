@@ -1,14 +1,14 @@
 import CARPI from '../assets/images/Transparent_Carpi.svg';
 import '../assets/css/font.css';
 import { Link } from 'react-router-dom';
+import { useState, CSSProperties } from 'react';
+import React from 'react';
 
-import { useState } from 'react';
-
-function Header() {
-  const [, setClickCount] = useState(0); // Click tracker for secret
+function Header(): JSX.Element {
+  const [, setClickCount] = useState<number>(0); // Click tracker for secret
 
   // Secret Egg
-  const handleClick = () => {
+  const handleClick = (): void => {
     setClickCount((prevCount) => {
       if (prevCount + 1 === 10) {
         alert('Fish ');
@@ -47,7 +47,8 @@ function Header() {
 }
 
 export default Header;
-const styles = {
+
+const styles: { [key: string]: CSSProperties } = {
   CARPI: {
     fontFamily: "'Single Day', cursive",
     fontSize: '2rem',

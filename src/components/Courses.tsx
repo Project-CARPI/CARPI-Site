@@ -1,6 +1,14 @@
+import React from 'react';
 import Course from './Course';
 
-const Courses = ({
+interface CourseProps {
+  courses: any[];
+  addCourseToToolbox: (course: any) => void;
+  addCourseToSemester: (course: any, semester: any) => void;
+  semesters: any[];
+}
+
+const Courses: React.FC<CourseProps> = ({
   courses,
   addCourseToToolbox,
   addCourseToSemester,
@@ -13,17 +21,18 @@ const Courses = ({
     >
       {courses.map((course, index) => (
         <Course
+          key={index}
           course={course}
           addCourseToToolbox={addCourseToToolbox}
           addCourseToSemester={addCourseToSemester}
           semesters={semesters}
-        ></Course>
+        />
       ))}
     </div>
   );
 };
 
-const styles = {
+const styles: { Container: React.CSSProperties } = {
   Container: {
     maxHeight: '500px', // Increased max height for a larger view
     overflowY: 'scroll',
