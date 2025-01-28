@@ -1,17 +1,15 @@
-import CARPI from '../assets/images/Transparent_Carpi.svg';
-import '../assets/css/font.css';
+import React, { useState, CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
-import { useState, CSSProperties } from 'react';
-import React from 'react';
+import '../assets/css/font.css';
 
-function Header(): JSX.Element {
+const Header: React.FC = () => {
   const [, setClickCount] = useState<number>(0); // Click tracker for secret
 
   // Secret Egg
-  const handleClick = (): void => {
+  const handleClick = () => {
     setClickCount((prevCount) => {
       if (prevCount + 1 === 10) {
-        alert('Fish ');
+        alert('Fish');
         return 0;
       }
       return prevCount + 1;
@@ -23,10 +21,9 @@ function Header(): JSX.Element {
       <div className="container mx-auto flex flex-row justify-between items-center">
         <img
           className="size-16 rounded-full ml-4"
-          src={CARPI}
           alt="Filler"
           onClick={handleClick}
-        ></img>
+        />
         <nav>
           <Link to="/search-course" style={{ margin: '0 10px' }}>
             Search Course
@@ -38,13 +35,10 @@ function Header(): JSX.Element {
             Course Planner
           </Link>
         </nav>
-        <h1 className="text-3xl font-bold" style={styles.CARPI}>
-          CARPI
-        </h1>
       </div>
     </header>
   );
-}
+};
 
 export default Header;
 
