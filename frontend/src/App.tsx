@@ -1,9 +1,25 @@
-import { useState } from "react";
+import React, { useState } from "react";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import Catalog from "./pages/Catalog";
+import Planner from "./pages/Planner";
 
 function App() {
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Catalog />,
+    },
+    {
+      path: "/planner",
+      element: <Planner />,
+    },
+  ]);
+
   return (
     <>
-      <h1 className="text-6xl">dfghj</h1>
+      <div>
+        <RouterProvider router={router}></RouterProvider>
+      </div>
     </>
   );
 }
