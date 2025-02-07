@@ -1,8 +1,7 @@
-import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Catalog from "./pages/Catalog";
 import Planner from "./pages/Planner";
-import DepartmentFilters from "./components/Department-Filters";
+import DepartmentFilters from "./components/Department-Filters.tsx";
 
 function App() {
   return (
@@ -11,6 +10,7 @@ function App() {
         <Route path="/" element={<Catalog />} />
         <Route path="/planner" element={<Planner />} />
         <Route path="/filters" element={<DepartmentFilters />} />
+        <Route path="/department-filters" element={<DepartmentFilters />} /> {/* New Route */}
       </Routes>
     </Router>
   );
