@@ -1,24 +1,18 @@
 import React, { useState } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Catalog from "./pages/Catalog";
 import Planner from "./pages/Planner";
 
 function App() {
-  const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <Catalog />,
-    },
-    {
-      path: "/planner",
-      element: <Planner />,
-    },
-  ]);
-
   return (
     <>
       <div>
-        <RouterProvider router={router}></RouterProvider>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Catalog />}></Route>
+            <Route path="/planner" element={<Planner />}></Route>
+          </Routes>
+        </Router>
       </div>
     </>
   );
