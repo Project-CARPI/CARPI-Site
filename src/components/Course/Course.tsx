@@ -21,11 +21,13 @@ interface CourseProps {
 const Course: React.FC<CourseProps> = ({ course }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [courseCount, setCourseCount] = useState(0);
-  const toggleOpen = () => {
-    setIsOpen((open) => !open);
+  const toggleOpen = (e: React.MouseEvent<HTMLDivElement>) => {
+    const target = e.target as HTMLElement;
+    if (target.id !== "add-button") setIsOpen((open) => !open);
   };
 
-  const addCourse = () => {
+  const addCourse = (e: React.MouseEvent<HTMLDivElement>) => {
+    e.stopPropagation();
     setCourseCount((count) => count + 1);
   };
   return (
@@ -36,7 +38,9 @@ const Course: React.FC<CourseProps> = ({ course }) => {
         onClick={toggleOpen}
       >
         <div
-          className={`absolute right-[-10px] top-[-10px] rounded-full bg-[#78A1BB] w-8 h-8 flex justify-center items-center text-white`}
+          className={`${
+            courseCount == 0 ? "hidden" : ""
+          } absolute right-[-10px] top-[-10px] rounded-full bg-[#78A1BB] w-8 h-8 flex justify-center items-center text-white`}
         >
           <p>{courseCount}</p>
         </div>
@@ -56,7 +60,7 @@ const Course: React.FC<CourseProps> = ({ course }) => {
               })}
             </div>
           </div>
-          <div className={``}>
+          <div id="add-button" className={``}>
             <AddButton addCourse={addCourse} />
           </div>
         </div>
