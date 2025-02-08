@@ -20,17 +20,26 @@ interface CourseProps {
 
 const Course: React.FC<CourseProps> = ({ course }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [courseCount, setCourseCount] = useState(0);
   const toggleOpen = () => {
     setIsOpen((open) => !open);
   };
 
+  const addCourse = () => {
+    setCourseCount((count) => count + 1);
+  };
   return (
     <>
       <div
-        className={`bg-[#F5CECE] border-2 border-black w-11/12 rounded-xl p-4 m-auto mt-2 
+        className={`relative bg-[#F5CECE] border-2 border-black w-11/12 rounded-xl p-4 m-auto mt-4 
           font-['Helvetica']`}
         onClick={toggleOpen}
       >
+        <div
+          className={`absolute right-[-10px] top-[-10px] rounded-full bg-[#78A1BB] w-8 h-8 flex justify-center items-center text-white`}
+        >
+          <p>{courseCount}</p>
+        </div>
         <div className={`flex items-center justify-between`}>
           <div className={`w-11/12`}>
             <p className={`text-xl`}>
@@ -48,16 +57,15 @@ const Course: React.FC<CourseProps> = ({ course }) => {
             </div>
           </div>
           <div className={``}>
-            <AddButton />
+            <AddButton addCourse={addCourse} />
           </div>
         </div>
         <div className={`${isOpen ? "" : "hidden"} mt-2`}>
           <motion.p
             initial={{ height: 0, opacity: 0 }}
-            animate={{ height: "auto", opacity: 1 }}
+            animate={isOpen ? { height: "auto", opacity: 1 } : {}}
             className={`text-sm`}
             transition={{ duration: 0.05 }}
-            key={isOpen}
           >
             {course.description}
           </motion.p>
