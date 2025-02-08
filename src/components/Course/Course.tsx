@@ -16,21 +16,33 @@ interface CourseType {
 
 interface CourseProps {
   course: CourseType;
+  toolboxCourses: { [key: string]: number };
+  setToolboxCourses: React.Dispatch<
+    React.SetStateAction<{ [key: string]: number }>
+  >;
 }
 
-const Course: React.FC<CourseProps> = ({ course }) => {
+const Course: React.FC<CourseProps> = ({
+  course,
+  toolboxCourses,
+  setToolboxCourses,
+}) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [courseCount, setCourseCount] = useState(0);
   const toggleOpen = (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;
     if (target.id !== "add-button") setIsOpen((open) => !open);
   };
 
+  const courseDisplay = `${course.department + course.code} ${course.name}`;
   const addCourse = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
-    setCourseCount((count) => count + 1);
+    setToolboxCourses((prevCourses) => ({
+      ...prevCourses,
+      [courseDisplay]: (prevCourses[courseDisplay] || 0) + 1,
+    }));
   };
 
+  const courseCount = toolboxCourses[courseDisplay];
   return (
     <>
       <div
@@ -40,7 +52,7 @@ const Course: React.FC<CourseProps> = ({ course }) => {
       >
         <div
           className={`${
-            courseCount == 0 ? "hidden" : ""
+            courseCount === undefined ? "hidden" : ""
           } absolute right-[-10px] top-[-10px] rounded-full bg-[#78A1BB] w-8 h-8 flex justify-center items-center text-white`}
         >
           <p>{courseCount}</p>
