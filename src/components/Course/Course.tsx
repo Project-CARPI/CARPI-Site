@@ -1,6 +1,7 @@
 import React from "react";
 import Tag from "./Tag";
 import AddButton from "./AddButton";
+
 interface CourseType {
   id: number;
   name: string;
@@ -19,9 +20,11 @@ interface CourseProps {
 const Course: React.FC<CourseProps> = ({ course }) => {
   return (
     <>
-      <div className={`bg-[#F5CECE] border-2 border-black w-11/12 rounded-xl`}>
-        <div className={`w-4/5`}>
-          <p>
+      <div
+        className={`bg-[#F5CECE] border-2 border-black w-11/12 rounded-xl p-4 m-2 font-['Helvetica']`}
+      >
+        <div className={`w-5/6`}>
+          <p className={`text-lg`}>
             {course.department}
             {course.code} {course.name}
           </p>

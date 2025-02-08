@@ -7,7 +7,10 @@ interface TagProp {
 const Tag: React.FC<TagProp> = ({ name, color }) => {
   return (
     <>
-      <div className={`bg-[#${color}] rounded-2xl text-white px-4 py-1`}>
+      <div
+        className={`rounded-2xl text-white px-3 py-1 text-xs mr-1 mb-1`}
+        style={{ backgroundColor: `#${color}` }}
+      >
         {name}
       </div>
     </>
