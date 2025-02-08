@@ -2,7 +2,7 @@ import React from "react";
 import { IoAdd } from "react-icons/io5";
 
 interface AddButtonProps {
-  addCourse: () => void;
+  addCourse: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 const AddButton: React.FC<AddButtonProps> = ({ addCourse }) => {
   return (

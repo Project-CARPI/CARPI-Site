@@ -26,10 +26,11 @@ const Course: React.FC<CourseProps> = ({ course }) => {
     if (target.id !== "add-button") setIsOpen((open) => !open);
   };
 
-  const addCourse = (e: React.MouseEvent<HTMLDivElement>) => {
+  const addCourse = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     setCourseCount((count) => count + 1);
   };
+
   return (
     <>
       <div
