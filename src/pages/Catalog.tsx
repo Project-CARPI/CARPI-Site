@@ -1,11 +1,54 @@
 import React from "react";
+import Course from "../components/Course/Course";
 
-function Catalog() {
+interface CatalogProps {
+  toolboxCourses: { [key: string]: number };
+  setToolboxCourses: React.Dispatch<
+    React.SetStateAction<{ [key: string]: number }>
+  >;
+}
+
+const Catalog: React.FC<CatalogProps> = ({
+  toolboxCourses,
+  setToolboxCourses,
+}) => {
+  const exampleCourse = {
+    id: 1,
+    name: "Principles of Software",
+    department: "CSCI",
+    code: "2600",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    attributesList: ["Commuication Intensive", "HASS"],
+    semestersOffered: ["Fall", "Spring"],
+    credits: 4,
+  };
+
+  const secondExample = {
+    id: 1,
+    name: "Introduction to Algorithms",
+    department: "CSCI",
+    code: "2300",
+    description:
+      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.",
+    attributesList: ["Commuication Intensive", "HASS"],
+    semestersOffered: ["Fall", "Spring"],
+    credits: 4,
+  };
   return (
     <>
-      <h1 className="text-8xl">This is the catalog</h1>
+      <Course
+        course={exampleCourse}
+        toolboxCourses={toolboxCourses}
+        setToolboxCourses={setToolboxCourses}
+      />
+      <Course
+        course={secondExample}
+        toolboxCourses={toolboxCourses}
+        setToolboxCourses={setToolboxCourses}
+      />
     </>
   );
-}
+};
 
 export default Catalog;
