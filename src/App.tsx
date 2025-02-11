@@ -10,7 +10,6 @@ function App() {
         <Route path="/" element={<Catalog />} />
         <Route path="/planner" element={<Planner />} />
         <Route path="/filters" element={<DepartmentFilters />} />
-        <Route path="/department-filters" element={<DepartmentFilters />} /> {/* New Route */}
       </Routes>
     </Router>
   );

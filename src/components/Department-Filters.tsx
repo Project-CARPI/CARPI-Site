@@ -1,79 +1,100 @@
 import React from 'react';
 
+// Department type
 interface Department {
   code: string;
   name: string;
 }
 
+// List of Departments 
 const departments: Department[] = [
-  { code: 'STSO', name: 'Science, Technology, & Society' },
-  { code: 'ERTH', name: 'Earth & Environmental Sci' },
   { code: 'ADMN', name: 'Administrative Courses' },
-  { code: 'BMED', name: 'Biomedical Engineering' },
-  { code: 'CIVL', name: 'Civil Engineering' },
-  { code: 'COMM', name: 'Communication' },
-  { code: 'BCBP', name: 'BioChemistry & BioPhysics' },
-  { code: 'CHME', name: 'Chemical Engineering' },
-  { code: 'ISCI', name: 'Interdisciplinary Science' },
-  { code: 'ECSE', name: 'Electrical, Computer, Systems Engineering' },
-  { code: 'USAR', name: 'Military Science' },
-  { code: 'USAF', name: 'Aerospace Studies' },
-  { code: 'MATP', name: 'Math PPPPP' },
-  { code: 'GSAS', name: 'Games & Simulation Arts & Sciences' },
-  { code: 'ITWS', name: 'Information Technology & Web Sci' },
-  { code: 'MTLE', name: 'Material Sciences & Engineering' },
-  { code: 'ISYE', name: 'Industrial & Systems Engineering' },
-  { code: 'LGHT', name: 'Lighting' },
-  { code: 'IENV', name: 'Interdisciplinary Environmental' },
-  { code: 'MANE', name: 'Mech, Aero, Nucl Engineer' },
-  { code: 'ENVE', name: 'Environmental Engineering' },
-  { code: 'ARTS', name: 'Arts' },
-  { code: 'ENGR', name: 'Core Engineering' },
-  { code: 'IHSS', name: 'HASS Inquiry' },
-  { code: 'PHYS', name: 'Physics' },
-  { code: 'ASTR', name: 'Astronomy' },
-  { code: 'COGS', name: 'Cognitive Science' },
-  { code: 'CSCI', name: 'Computer Science' },
-  { code: 'LITR', name: 'Literature' },
-  { code: 'MATH', name: 'Mathematics' },
-  { code: 'USNA', name: 'Naval Science' },
-  { code: 'PHIL', name: 'Philosophy' },
-  { code: 'LANG', name: 'Languages' },
   { code: 'ARCH', name: 'Architecture' },
-  { code: 'CHEM', name: 'Chemistry' },
-  { code: 'BUSS', name: 'Business' },
-  { code: 'ECON', name: 'Economics' },
+  { code: 'ARTS', name: 'Arts' },
+  { code: 'ASTR', name: 'Astronomy' },
+  { code: 'BCBP', name: 'BioChemistry & BioPhysics' },
   { code: 'BIOL', name: 'Biology' },
+  { code: 'BMED', name: 'Biomedical Engineering' },
+  { code: 'BUSN', name: 'Business' },
+  { code: 'CHEM', name: 'Chemistry' },
+  { code: 'CHME', name: 'Chemical Engineering' },
+  { code: 'CIVL', name: 'Civil Engineering' },
+  { code: 'COGS', name: 'Cognitive Science' },
+  { code: 'COMM', name: 'Communication' },
+  { code: 'CSCI', name: 'Computer Science' },
+  { code: 'ECON', name: 'Economics' },
+  { code: 'ECSE', name: 'Electrical, Computer, Systems Engineering' },
+  { code: 'ENGR', name: 'Core Engineering' },
+  { code: 'ENVE', name: 'Environmental Engineering' },
+  { code: 'ERTH', name: 'Earth & Environmental Sci' },
+  { code: 'GSAS', name: 'Games & Simulation Arts & Sciences' },
+  { code: 'IHSS', name: 'HASS Inquiry' },
+  { code: 'IENV', name: 'Interdisciplinary Environmental' },
+  { code: 'ISCI', name: 'Interdisciplinary Science' },
+  { code: 'ISYE', name: 'Industrial & Systems Engineering' },
+  { code: 'ITWS', name: 'Information Technology & Web Sci' },
+  { code: 'LANG', name: 'Languages' },
+  { code: 'LGHT', name: 'Lighting' },
+  { code: 'LITR', name: 'Literature' },
+  { code: 'MANE', name: 'Mech, Aero, Nucl Engineer' },
+  { code: 'MATH', name: 'Mathematics' },
+  { code: 'MATP', name: 'Mathematical Programming, Probability, and Statistics' },
+  { code: 'MTLE', name: 'Material Sciences & Engineering' },
+  { code: 'PHIL', name: 'Philosophy' },
+  { code: 'PHYS', name: 'Physics' },
+  { code: 'STSO', name: 'Science, Technology, & Society' },
+  { code: 'USAF', name: 'Aerospace Studies' },
+  { code: 'USAR', name: 'Military Science' },
+  { code: 'USNA', name: 'Naval Science' },
   { code: 'WRIT', name: 'Writing' }
 ];
 
+// DepartmentFilters component
 interface DepartmentFiltersProps {
   onSelect?: (department: Department) => void;
   selectedDepartment?: string;
+  isVisible?: boolean;
 }
 
+//
 const DepartmentFilters: React.FC<DepartmentFiltersProps> = ({ 
   onSelect,
-  selectedDepartment 
+  selectedDepartment,
+  isVisible = true
 }) => {
+  if (!isVisible) return null;
+
+  // Render the list of departments
   return (
-    <div className="w-full h-full px-1 pt-2 pb-5 justify-center items-start gap-2 inline-flex overflow-auto">
-      {departments.map((dept) => (
-        <div
-          key={dept.code}
-          className={`px-2.5 py-1 rounded-xl border justify-center items-center gap-2.5 flex ${selectedDepartment === dept.code ? 'border-blue-500' : 'border-black'}`}
-          onClick={() => onSelect?.(dept)}
-        >
-          <div>
-            <span className="text-[#283044] text-xs font-bold font-['Helvetica']">
-              {dept.code}{' '}
-            </span>
-            <span className="text-[#283044] text-xs font-normal font-['Helvetica']">
-              {dept.name}
-            </span>
-          </div>
-        </div>
-      ))}
+    <div className="w-full h-full flex items-center justify-center bg-pink-100 p-2 overflow-hidden">
+      <div className="flex flex-wrap gap-2 justify-center overflow-y-auto max-h-full">
+        {departments.map((dept) => (
+          <button
+            key={dept.code}
+            className={`
+              flex-shrink-0
+              px-3 
+              py-1.5 
+              rounded-full 
+              border 
+              border-black 
+              text-xs
+              transition-colors
+              ${selectedDepartment === dept.code 
+                ? 'bg-blue-100 border-blue-500' 
+                : 'bg-transparent active:bg-gray-100'
+              }
+            `}
+            onClick={() => onSelect?.(dept)}
+          >
+            <div className="flex items-center whitespace-nowrap">
+              <span className="font-bold">{dept.code}</span>
+              <span className="mx-1">·</span>
+              <span className="font-normal">{dept.name}</span>
+            </div>
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
