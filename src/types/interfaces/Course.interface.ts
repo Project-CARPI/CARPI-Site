@@ -6,4 +6,5 @@ export interface CourseType {
   description: string;
   attributesList: string[];
   semestersOffered: string[];
+  credits: number;
 }
