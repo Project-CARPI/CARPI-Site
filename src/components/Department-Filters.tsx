@@ -56,7 +56,6 @@ interface DepartmentFiltersProps {
   isVisible?: boolean;
 }
 
-//
 const DepartmentFilters: React.FC<DepartmentFiltersProps> = ({ 
   onSelect,
   selectedDepartment,
@@ -84,6 +83,7 @@ const DepartmentFilters: React.FC<DepartmentFiltersProps> = ({
                 ? 'bg-blue-100 border-blue-500' 
                 : 'bg-transparent active:bg-gray-100'
               }
+              hover:bg-black hover:text-white
             `}
             onClick={() => onSelect?.(dept)}
           >
