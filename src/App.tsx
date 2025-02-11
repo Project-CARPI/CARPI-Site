@@ -8,7 +8,7 @@ function App() {
   const [toolboxCourses, setToolboxCourses] = useState({});
   return (
     <>
-      <div>
+      <div className="font-['Helvetica']">
         <Router>
           <Routes>
             <Route

@@ -2,17 +2,7 @@ import React, { useState } from "react";
 import Tag from "./Tag";
 import AddButton from "./AddButton";
 import { motion } from "framer-motion";
-
-interface CourseType {
-  id: number;
-  name: string;
-  department: string;
-  code: string;
-  description: string;
-  attributesList: string[];
-  semestersOffered: string[];
-  courseCount: number;
-}
+import { CourseType } from "../../types/interfaces/Course.interface";
 
 interface CourseProps {
   course: CourseType;
@@ -47,7 +37,7 @@ const Course: React.FC<CourseProps> = ({
     <>
       <div
         className={`relative bg-[#F5CECE] border-2 border-black w-11/12 rounded-xl p-4 m-auto mt-4 
-          font-['Helvetica']`}
+          `}
         onClick={toggleOpen}
       >
         <div
