@@ -1,5 +1,6 @@
 import React from "react";
 import Course from "../components/Course/Course";
+import SearchBar from "../components/SearchBar/SeachBar";
 
 interface CatalogProps {
   toolboxCourses: { [key: string]: number };
@@ -37,6 +38,7 @@ const Catalog: React.FC<CatalogProps> = ({
   };
   return (
     <>
+      <SearchBar />
       <Course
         course={exampleCourse}
         toolboxCourses={toolboxCourses}
