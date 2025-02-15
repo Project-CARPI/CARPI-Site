@@ -15,7 +15,6 @@ interface SearchBarProps {
 }
 
 const SearchBar: React.FC<SearchBarProps> = ({  }) => {
-  // State to track visibility of the FilterSection and the text of the button
   const [showFilter, setShowFilter] = useState(false);
 
   const [filters, setFilters] = useState<Filters>({
@@ -24,16 +23,22 @@ const SearchBar: React.FC<SearchBarProps> = ({  }) => {
     Semesters: []
   })
 
-  // Function to toggle the filter section visibility
   const toggleFilterSection = () => {
     setShowFilter(prev => !prev);
   };
 
   const updateFilters = (category: keyof Filters, value: string) => {
-    setFilters(prev => ({
-      ...prev,
-      [category]: [...prev[category], value]
-    }));
+    setFilters(prev => {
+      if (prev[category].includes(value)) {
+        const newFilters: Filters = { ...prev };
+        newFilters[category] = newFilters[category].filter(tag => tag !== value);
+        return newFilters;
+      }
+      return {
+        ...prev,
+        [category]: [...prev[category], value]
+      };
+    });
   };
 
   const removeFilter = (value: string) => {

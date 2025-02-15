@@ -26,8 +26,8 @@ const FilterSection: React.FC<FilterSectionProps> = ({ sectionName, tags, select
         {tags.map(tag => (
           <button
             key={tag.id}
-            className={`rounded-2xl text-white px-3 py-1 text-sm mr-1 mb-1 font-thin 
-              ${selected.includes(tag.code) ? "bg-blue-600" : "bg-darkblue"}`}
+            className={`rounded-2xl px-3 py-1 text-sm mr-1 mb-1 flex-none
+              ${selected.includes(tag.code) ? "bg-darkblue text-carpipink font-thin" : "border border-darkblue text-darkblue"}`}
             onClick={() => updateFilters(sectionName, tag.code)}
           >
             {tag.code}
