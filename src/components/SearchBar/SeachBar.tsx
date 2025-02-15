@@ -24,7 +24,6 @@ const SearchBar: React.FC<SearchBarProps> = ({ updateSearchResults }) => {
   })
 
   useEffect(() => {
-
     const deptFilters = filters.Subject.join(",");
     const attrFilters = filters.Attributes.join(",");
     const semFilters = filters.Semesters.join(",");
@@ -38,6 +37,11 @@ const SearchBar: React.FC<SearchBarProps> = ({ updateSearchResults }) => {
 
     search();
   }, [filters, searchPrompt])
+
+  const handleSearch = (e: React.KeyboardEvent) => {
+    (e.currentTarget as HTMLInputElement).blur();
+    setShowFilter(false);
+  }
 
   const updateFilters = (category: keyof Filters, value: string) => {
     setFilters(prev => {
@@ -64,37 +68,43 @@ const SearchBar: React.FC<SearchBarProps> = ({ updateSearchResults }) => {
   };
 
   return (
-    <div className="p-6 pb-0">
+    <div className="p-6 pt-0 pb-0">
       <div className="flex justify-between items-center border-b p-2 mb-2">
         <div className="flex items-center gap-2">
           <IoSearchOutline />
           <input
             type="text"
             placeholder="Find Courses Here"
-            className="text-base"
+            className="text-base placeholder-darkblue-40 focus:placeholder-transparent focus:outline-none focus:ring-0"
             value={searchPrompt}
-            onClick={() => setShowFilter(prev => !prev)}
+            enterKeyHint="search"
+            onClick={() => setShowFilter(true)}
             onChange={(e) => setSearchPrompt(e.target.value)}
+            onKeyDown={(e) => { if (e.key === 'Enter') handleSearch(e) }}
           />
         </div>
-        {showFilter && <IoClose onClick={() => setShowFilter(prev => !prev)} />}
+        {showFilter && <IoClose onClick={() => setShowFilter(false)} />}
       </div>
-      
-      <button className="unset w-full text-right text-sm cursor-pointer" onClick={() => setShowFilter(prev => !prev)}>
-        {showFilter ? "Hide Options" : "Show Options"}
-      </button>
 
-      <div className="flex flex-wrap mb-2">
-        {filters.Subject.map((tag, index) => (
-          <ChosenTag key={index} name={tag} onRemove={removeFilter} />
-        ))}
-        {filters.Attributes.map((tag, index) => (
-          <ChosenTag key={index} name={tag} onRemove={removeFilter} />
-        ))}
-        {filters.Semesters.map((tag, index) => (
-          <ChosenTag key={index} name={tag} onRemove={removeFilter} />
-        ))}
+      <div className="flex items-start">
+        <div className="flex flex-wrap mb-2 w-full">
+          {filters.Subject.map((tag, index) => (
+            <ChosenTag key={index} name={tag} onRemove={removeFilter} />
+          ))}
+          {filters.Attributes.map((tag, index) => (
+            <ChosenTag key={index} name={tag} onRemove={removeFilter} />
+          ))}
+          {filters.Semesters.map((tag, index) => (
+            <ChosenTag key={index} name={tag} onRemove={removeFilter} />
+          ))}
+        </div>
+
+        <button className="unset w-[150px] text-right text-sm cursor-pointer" onClick={() => setShowFilter(prev => !prev)}>
+          {showFilter ? "Hide Options" : "Show Options"}
+        </button>
       </div>
+
+
 
       {showFilter && <FilterPanel filters={filters} updateFilters={updateFilters} />}
     </div>

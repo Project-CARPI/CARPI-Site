@@ -44,7 +44,7 @@ const Course: React.FC<CourseProps> = ({
   return (
     <>
       <div
-        className={`relative bg-[#F5CECE] border-2 border-black w-11/12 rounded-xl p-4 m-auto mt-4 
+        className={`relative bg-[#F5CECE] border-[1px] border-black w-11/12 rounded-xl p-4 m-auto mt-4 
           `}
         onClick={toggleOpen}
       >
@@ -57,10 +57,13 @@ const Course: React.FC<CourseProps> = ({
         </div>
         <div className={`flex items-center justify-between`}>
           <div className={`w-11/12`}>
-            <p className={`text-xl`}>
-              {course.dept}
-              {course.code_num} {toTitleCase(course.title)}
-            </p>
+            <div className={`text-lg ml-1`}>
+              <b>
+                {course.dept}
+                {course.code_num}
+              </b>
+              <p>{toTitleCase(course.title)}</p>
+            </div>
             <div className={`flex flex-wrap mt-1`}>
               <Tag name={course.dept} color={"4D5E87"} />
               {course.attr_list?.split(",").map((attr, index) => {

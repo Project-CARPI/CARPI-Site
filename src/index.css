@@ -3,5 +3,15 @@
 @theme {
   --color-carpipink: oklch(88.46% 0.0441 18.02);
   --color-darkblue: oklch(31.09% 0.0378 267.38);
+  --color-darkblue-40: oklch(31.09% 0.0378 267.38/40%);
   --color-lightblue: oklch(68.85% 0.0588 236.57);
+}
+
+body {
+  @apply bg-carpipink;
+}
+
+img {
+  image-rendering: crisp-edges;
+  image-rendering: -webkit-optimize-contrast;
 }

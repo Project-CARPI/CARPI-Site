@@ -12,8 +12,9 @@ const Catalog: React.FC<CatalogProps> = ({ toolboxCourses, setToolboxCourses }) 
 
   return (
     <>
+      <img src="/carpi-black.png" alt="Carpi Logo" className="w-1/4 m-auto mt-5"/>
       <SearchBar updateSearchResults={updateSearchResults}/>
-      <div className="flex flex-wrap justify-center">
+      <div className="flex flex-wrap justify-center pb-38">
         {searchResults?.map((course: any, index: number) => (
           <Course key={index} course={course} toolboxCourses={toolboxCourses} setToolboxCourses={setToolboxCourses} />
         ))}

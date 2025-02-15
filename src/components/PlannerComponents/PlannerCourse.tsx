@@ -7,6 +7,15 @@ interface PlannerCourseProps {
 }
 
 const PlannerCourse: React.FC<PlannerCourseProps> = ({ course }) => {
+
+  const toTitleCase = (str: string) => {
+    return str
+      .toLowerCase()
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  }
+
   return (
     <>
       <div
@@ -17,17 +26,17 @@ const PlannerCourse: React.FC<PlannerCourseProps> = ({ course }) => {
             <MdDragIndicator />
             <div className={`text-sm ml-1`}>
               <b>
-                {course.department}
-                {course.code}
+                {course.dept}
+                {course.code_num}
               </b>
-              <p>{course.name}</p>
+              <p>{toTitleCase(course.title)}</p>
             </div>
           </div>
           <div className={`flex items-center`}>
             <div
               className={`rounded-full bg-[#F5CECE] text-[#283044] w-5 h-5 flex items-center justify-center text-sm mr-1 font-medium`}
             >
-              <p>{course.credits}</p>
+              <p>{course.credit_max}</p>
             </div>
             <MdOutlineMoreHoriz />
           </div>
