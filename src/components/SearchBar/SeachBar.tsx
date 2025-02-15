@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { IoClose, IoSearchOutline } from "react-icons/io5";
+import api from "../../axios";
 import FilterPanel from "./FilterPanel";
 import ChosenTag from "./ChosenTag";
 
@@ -10,22 +11,33 @@ type Filters = {
 }
 
 interface SearchBarProps {
-  // sectionName: string;
-  // tags: { id: number, code: string }[];
+  updateSearchResults: (results: any) => void;
 }
 
-const SearchBar: React.FC<SearchBarProps> = ({  }) => {
+const SearchBar: React.FC<SearchBarProps> = ({ updateSearchResults }) => {
+  const [searchPrompt, setSearchPrompt] = useState("");
   const [showFilter, setShowFilter] = useState(false);
-
   const [filters, setFilters] = useState<Filters>({
     Subject: [],
     Attributes: [],
     Semesters: []
   })
 
-  const toggleFilterSection = () => {
-    setShowFilter(prev => !prev);
-  };
+  useEffect(() => {
+
+    const deptFilters = filters.Subject.join(",");
+    const attrFilters = filters.Attributes.join(",");
+    const semFilters = filters.Semesters.join(",");
+
+    const search = async() => {
+      const response = await api.get("course/search?searchPrompt=" + searchPrompt + "&deptFilters=" + deptFilters + "&attrFilters=" + attrFilters + "&semFilters=" + semFilters);
+      const data = response.data;
+      console.log(data);
+      updateSearchResults(data);
+    }
+
+    search();
+  }, [filters, searchPrompt])
 
   const updateFilters = (category: keyof Filters, value: string) => {
     setFilters(prev => {
@@ -60,17 +72,19 @@ const SearchBar: React.FC<SearchBarProps> = ({  }) => {
             type="text"
             placeholder="Find Courses Here"
             className="text-base"
-            onClick={toggleFilterSection}
+            value={searchPrompt}
+            onClick={() => setShowFilter(prev => !prev)}
+            onChange={(e) => setSearchPrompt(e.target.value)}
           />
         </div>
-        {showFilter && <IoClose onClick={toggleFilterSection} />}
+        {showFilter && <IoClose onClick={() => setShowFilter(prev => !prev)} />}
       </div>
       
-      <button className="unset w-full text-right text-sm cursor-pointer" onClick={toggleFilterSection}>
+      <button className="unset w-full text-right text-sm cursor-pointer" onClick={() => setShowFilter(prev => !prev)}>
         {showFilter ? "Hide Options" : "Show Options"}
       </button>
 
-      <div className="mb-2">
+      <div className="flex flex-wrap mb-2">
         {filters.Subject.map((tag, index) => (
           <ChosenTag key={index} name={tag} onRemove={removeFilter} />
         ))}
