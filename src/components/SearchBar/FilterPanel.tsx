@@ -20,6 +20,8 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ filters, updateFilters }) => 
   const [semesters, setSemesters] = useState([]);
 
   useEffect(() => {
+    console.log("getting filters");
+    
     const fetchSubjects = async () => {
       const response = await api.get("/course/filter/values/departments");
       const subjects = response.data.map((subject: string, index: number) => {
@@ -60,12 +62,11 @@ const FilterPanel: React.FC<FilterPanelProps> = ({ filters, updateFilters }) => 
   }, []);
 
   return (
-    // <div className="absolute z-10 bg-carpipink w-full p-6 pt-0 left-0">
-    <div>
+    <>
       <FilterSection sectionName="Subject" tags={subjects} selected={filters.Subject} updateFilters={updateFilters}  />
       <FilterSection sectionName="Attributes" tags={attributes} selected={filters.Attributes} updateFilters={updateFilters}/>
       <FilterSection sectionName="Semesters" tags={semesters} selected={filters.Semesters} updateFilters={updateFilters} />
-    </div>
+    </>
   );
 };
 

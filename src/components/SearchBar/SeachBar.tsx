@@ -70,23 +70,25 @@ const SearchBar: React.FC<SearchBarProps> = ({ updateSearchResults }) => {
   return (
     <div className="p-6 pt-0 pb-0">
       <div className="flex justify-between items-center border-b p-2 mb-2">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 w-full">
           <IoSearchOutline />
           <input
             type="text"
+            aria-label="Search Courses"
+            aria-required="true"
             placeholder="Find Courses Here"
-            className="text-base placeholder-darkblue-40 focus:placeholder-transparent focus:outline-none focus:ring-0"
+            className="flex-grow text-base placeholder-darkblue-40 focus:placeholder-transparent focus:outline-none focus:ring-0"
             value={searchPrompt}
             enterKeyHint="search"
             onClick={() => setShowFilter(true)}
             onChange={(e) => setSearchPrompt(e.target.value)}
-            onKeyDown={(e) => { if (e.key === 'Enter') handleSearch(e) }}
+            onKeyDown={(e) => { if (e.key === 'Enter' || e.key === "Done") handleSearch(e) }}
           />
         </div>
-        {showFilter && <IoClose onClick={() => setShowFilter(false)} />}
+        {showFilter && <IoClose onClick={() => { setShowFilter(false); setSearchPrompt("") }} />}
       </div>
 
-      <div className="flex items-start">
+      <div className="flex items-start -mb-2">
         <div className="flex flex-wrap mb-2 w-full">
           {filters.Subject.map((tag, index) => (
             <ChosenTag key={index} name={tag} onRemove={removeFilter} />
@@ -103,8 +105,6 @@ const SearchBar: React.FC<SearchBarProps> = ({ updateSearchResults }) => {
           {showFilter ? "Hide Options" : "Show Options"}
         </button>
       </div>
-
-
 
       {showFilter && <FilterPanel filters={filters} updateFilters={updateFilters} />}
     </div>
