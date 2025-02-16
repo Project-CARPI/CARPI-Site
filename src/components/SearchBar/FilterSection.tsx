@@ -1,10 +1,5 @@
 import React from "react";
-
-type Filters = {
-  Subject: string[];
-  Attributes: string[];
-  Semesters: string[];
-};
+import { Filters } from "../../types/Filters";
 
 interface TagProp {
   id: number;

@@ -1,12 +1,7 @@
 import api from "../../axios";
+import { Filters } from "../../types/Filters";
 import FilterSection from "./FilterSection";
 import { useEffect, useState } from "react";
-
-type Filters = {
-  Subject: string[];
-  Attributes: string[];
-  Semesters: string[];
-};
 
 interface FilterPanelProps {
   filters: { [key: string]: string[] };

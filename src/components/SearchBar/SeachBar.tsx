@@ -3,12 +3,7 @@ import { IoClose, IoSearchOutline } from "react-icons/io5";
 import api from "../../axios";
 import FilterPanel from "./FilterPanel";
 import ChosenTag from "./ChosenTag";
-
-type Filters = {
-  Subject: string[];
-  Attributes: string[];
-  Semesters: string[];
-}
+import { Filters } from "../../types/Filters";
 
 interface SearchBarProps {
   updateSearchResults: (results: any) => void;
