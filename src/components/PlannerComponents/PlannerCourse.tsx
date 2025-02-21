@@ -7,12 +7,13 @@ interface PlannerCourseProps {
 }
 
 const PlannerCourse: React.FC<PlannerCourseProps> = ({ course }) => {
-  const [openPopup, setOpenPopup] = useState<boolean>(true);
-  const togglePopup = () => {
-    setOpenPopup((open) => !open);
-  };
-
+  const [openPopup, setOpenPopup] = useState<boolean>(false);
   const componentRef = useRef<HTMLDivElement>(null);
+
+  const togglePopup = (event: React.MouseEvent) => {
+    event.stopPropagation();
+    setOpenPopup((prev) => !prev);
+  };
 
   const handleClickOutside = (event: MouseEvent) => {
     if (
@@ -32,46 +33,53 @@ const PlannerCourse: React.FC<PlannerCourseProps> = ({ course }) => {
   }, []);
 
   return (
-    <>
-      <div
-        className={`bg-[#283044] w-3/4 h-18 rounded-lg text-[#F5CECE] flex items-center relative`}
-      >
-        <div className={`flex justify-between w-11/12 m-auto text-2xl`}>
-          <div className={`flex items-center`}>
-            <MdDragIndicator />
-            <div className={`text-sm ml-1`}>
-              <b>
-                {course.department}
-                {course.code}
-              </b>
-              <p>{course.name}</p>
-            </div>
-          </div>
-          <div className={`flex items-center`}>
-            <div
-              className={`rounded-full bg-[#F5CECE] text-[#283044] w-5 h-5 flex items-center justify-center text-sm mr-1 font-medium`}
-            >
-              <p>{course.credits}</p>
-            </div>
-            <MdOutlineMoreHoriz onClick={togglePopup} />
+    <div className="bg-[#283044] w-3/4 h-18 rounded-lg text-[#F5CECE] flex items-center relative">
+      <div className="flex justify-between w-11/12 m-auto text-2xl">
+        <div className="flex items-center">
+          <MdDragIndicator />
+          <div className="text-sm ml-1">
+            <b>
+              {course.department}
+              {course.code}
+            </b>
+            <p>{course.name}</p>
           </div>
         </div>
-        <div
-          className={`${openPopup ? "hidden" : ""} absolute h-fit w-fit bg-[#F5CECE] rounded-xl border-1 border-slate-500 text-[#283044] text-xs -right-4 -bottom-20 *:*:px-1 p-1 *:*:py-1 *:pr-6`}
-          ref={componentRef}
-        >
-          <div className={`h-1/2 relative flex flex-col items-start pb-1 `}>
-            <button>Duplicate</button>
-            <button>Move to next sem</button>
+        <div className="flex items-center">
+          <div className="rounded-full bg-[#F5CECE] text-[#283044] w-5 h-5 flex items-center justify-center text-sm mr-1 font-medium">
+            <p>{course.credits}</p>
           </div>
-          <hr />
-          <div className={`h-1/2 relative flex flex-col items-start pt-1`}>
-            <button>Back to toolbox</button>
-            <button>Delete</button>
-          </div>
+          <MdOutlineMoreHoriz
+            onClick={togglePopup}
+            className="cursor-pointer"
+          />
         </div>
       </div>
-    </>
+
+      {/* Popup Menu */}
+      {openPopup && (
+        <div
+          ref={componentRef}
+          className="absolute bg-[#F5CECE] rounded-xl border border-slate-500 text-[#283044] text-xs p-2 right-0 top-8 shadow-lg"
+        >
+          <div className="flex flex-col items-start space-y-1">
+            <button className="hover:bg-gray-300 p-1 w-full text-left">
+              Duplicate
+            </button>
+            <button className="hover:bg-gray-300 p-1 w-full text-left">
+              Move to next sem
+            </button>
+            <hr className="w-full border-gray-400" />
+            <button className="hover:bg-gray-300 p-1 w-full text-left">
+              Back to toolbox
+            </button>
+            <button className="hover:bg-red-300 p-1 w-full text-left">
+              Delete
+            </button>
+          </div>
+        </div>
+      )}
+    </div>
   );
 };
 
