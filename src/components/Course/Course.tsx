@@ -23,7 +23,15 @@ const Course: React.FC<CourseProps> = ({
     if (target.id !== "add-button") setIsOpen((open) => !open);
   };
 
-  const courseDisplay = `${course.department + course.code} ${course.name}`;
+  const toTitleCase = (str: string) => {
+    return str
+      .toLowerCase()
+      .split(" ")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  }
+
+  const courseDisplay = `${course.dept + course.code_num} ${toTitleCase(course.title)}`;
   const addCourse = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     setToolboxCourses((prevCourses) => ({
@@ -36,7 +44,7 @@ const Course: React.FC<CourseProps> = ({
   return (
     <>
       <div
-        className={`relative bg-[#F5CECE] border-2 border-black w-11/12 rounded-xl p-4 m-auto mt-4 
+        className={`relative bg-[#F5CECE] border-[1px] border-black w-11/12 rounded-xl p-4 m-auto mt-4 
           `}
         onClick={toggleOpen}
       >
@@ -49,17 +57,20 @@ const Course: React.FC<CourseProps> = ({
         </div>
         <div className={`flex items-center justify-between`}>
           <div className={`w-11/12`}>
-            <p className={`text-xl`}>
-              {course.department}
-              {course.code} {course.name}
-            </p>
+            <div className={`text-lg ml-1`}>
+              <b>
+                {course.dept}
+                {course.code_num}
+              </b>
+              <p>{toTitleCase(course.title)}</p>
+            </div>
             <div className={`flex flex-wrap mt-1`}>
-              <Tag name={course.department} color={"4D5E87"} />
-              {course.attributesList.map((attr) => {
-                return <Tag name={attr} color={"4D5E87"} />;
+              <Tag name={course.dept} color={"4D5E87"} />
+              {course.attr_list?.split(",").map((attr, index) => {
+                return <Tag key={index} name={attr} color={"4D5E87"} />;
               })}
-              {course.semestersOffered.map((semester) => {
-                return <Tag name={semester} color={"4D5E87"} />;
+              {course.sem_list?.split(",").map((semester, index) => {
+                return <Tag key={index} name={semester} color={"4D5E87"} />;
               })}
             </div>
           </div>
@@ -74,7 +85,7 @@ const Course: React.FC<CourseProps> = ({
             className={`text-sm`}
             transition={{ duration: 0.05 }}
           >
-            {course.description}
+            {course.desc_text}
           </motion.p>
         </div>
       </div>
