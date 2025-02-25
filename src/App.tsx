@@ -8,7 +8,7 @@ function App() {
   const [toolboxCourses, setToolboxCourses] = useState({});
   return (
     <>
-      <div className="font-['Helvetica']">
+      <div className="font-['Helvetica'] bg-carpipink min-h-screen">
         <Router>
           <Routes>
             <Route
